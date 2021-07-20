@@ -3,6 +3,7 @@ const addBookBtn = document.querySelector('button[id="newBook"]');
 const submitBtn = document.getElementById("submit");
 
 let myLibrary = [];
+//let bookIndex = 0;
 
 //book constructor
 function Book(title, author, pages, read){
@@ -13,14 +14,14 @@ function Book(title, author, pages, read){
 
 }
 
-Book.prototype.info = function(){
-    return {
-        title : this.title,
-        author : this.author,
-        pages : this.pages,
-        read : this.read
-    };
-}
+// Book.prototype.info = function(){
+//     return {
+//         title : this.title,
+//         author : this.author,
+//         pages : this.pages,
+//         read : this.read
+//     };
+// }
 
 //add book to start oy library array
 function addBookToLibrary(book){
@@ -31,15 +32,17 @@ function addBookToLibrary(book){
 //display all books in library
 function displayMyLibrary(library){
 
+
     //clear display before getting books
     libraryDisplay.innerHTML = '';
 
     library.forEach(element => {
-        console.log(element.title);
+        //console.log(element.title);
 
         //make card for each book
-        libraryDisplay.innerHTML += `<div class="card">
+        libraryDisplay.innerHTML += `<div class="card" data-bookTitle="${element.title}">
                                         <div class="container">
+                                        <span class="delete" data-bookTitle="${element.title}">&times;</span>
                                         <h4><b>"${element.title}"</b></h4>
                                         <p>by ${element.author}</p>
                                         <p>${element.pages} pages</p>
@@ -49,6 +52,17 @@ function displayMyLibrary(library){
 
     });
 
+    //define remove book buttons
+    const removeBookBtn = document.querySelectorAll('span[class="delete"]');
+
+    removeBookBtn.forEach(element => {
+      element.addEventListener('click', function removeBookBtn(e){
+    
+        title = element.getAttribute('data-booktitle');
+        console.log(title);
+        removeBook(title);
+      });
+    });
 }
 
 
@@ -79,49 +93,55 @@ addBookToLibrary(theTimeMachine);
 displayMyLibrary(myLibrary);
 
 
-
-
 //// submit button in add book modal
-
-
-
 submitBtn.onclick = function() {
 
     modal.style.display = "none";
     bookTitle = document.getElementById('bookTitle').value;
     bookAuthor = document.getElementById('bookAuthor').value;
     bookPages = document.getElementById('bookPages').value;
-    bookRead = document.getElementById('bookPages').value;
-
-    //alert(`Your book is ${bookTitle} written by ${bookAuthor}`);
+    bookRead = document.getElementById('bookRead').checked;
 
     const newBook = Object.create(Book.prototype);
     newBook.title = bookTitle;
     newBook.author = bookAuthor;
     newBook.pages = bookPages;
-    newBook.read = bookPages;
+    newBook.read = bookRead;
 
     //alert(newBook);
-    debugger;
     addBookToLibrary(newBook);
     displayMyLibrary(myLibrary);
-
 
 }
 
 
-////
+
+function removeBook(title){
+
+  const index = myLibrary.findIndex(book => book.title === title);
+  console.log(index);
+
+  myLibrary.splice(index, 1);
+
+
+  //'refresh' library display after removing a book
+  displayMyLibrary(myLibrary);
+
+}
+
+
+
+
 
 
 
 
 //// the modal stuff for add a new book  ////
 // Get the modal
-var modal = document.getElementById("myModal");
-
+const modal = document.getElementById("myModal");
 
 // Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+const span = document.getElementsByClassName("close")[0];
 
 // When the user clicks the button, open the modal 
 addBookBtn.onclick = function() {
@@ -139,5 +159,3 @@ window.onclick = function(event) {
     modal.style.display = "none";
   }
 }
-
-
