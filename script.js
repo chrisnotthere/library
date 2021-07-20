@@ -39,6 +39,9 @@ function displayMyLibrary(library){
     library.forEach(element => {
         //console.log(element.title);
 
+        let checked;
+        if (element.read ? checked = 'checked' : checked = '');
+        
         //make card for each book
         libraryDisplay.innerHTML += `<div class="card" data-bookTitle="${element.title}">
                                         <div class="container">
@@ -47,6 +50,10 @@ function displayMyLibrary(library){
                                         <p>by ${element.author}</p>
                                         <p>${element.pages} pages</p>
                                         <p>Read? ${element.read}</p>
+                                        <label class="switch">
+                                          <input type="checkbox" ${checked}>
+                                          <span class="slider round"></span>
+                                        </label>
                                         </div>
                                     </div>`;
 
@@ -63,6 +70,21 @@ function displayMyLibrary(library){
         removeBook(title);
       });
     });
+
+
+    //define read book status toggle
+    const toggleReadBtn = document.querySelectorAll('input[type="checkbox"]');
+
+    toggleReadBtn.forEach(element => {
+      element.addEventListener('change', function toggleReadStatus(){
+        read = element.checked;
+        title = element.parentElement.parentElement.parentElement.getAttribute('data-booktitle');
+        toggleBookRead(read, title);
+      });
+    });
+
+
+
 }
 
 
@@ -114,7 +136,9 @@ submitBtn.onclick = function() {
 
 }
 
-
+function refresh(){
+  displayMyLibrary(myLibrary);
+}
 
 function removeBook(title){
 
@@ -128,6 +152,22 @@ function removeBook(title){
   displayMyLibrary(myLibrary);
 
 }
+
+
+
+function toggleBookRead(bool, title){
+
+  const index = myLibrary.findIndex(book => book.title === title);
+  console.log(index);
+
+  myLibrary[index].read = bool;
+
+  //'refresh' library display after changing read status
+  displayMyLibrary(myLibrary);
+
+}
+
+
 
 
 
