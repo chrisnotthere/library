@@ -3,7 +3,6 @@ const addBookBtn = document.querySelector('button[id="newBook"]');
 const submitBtn = document.getElementById("submit");
 
 let myLibrary = [];
-//let bookIndex = 0;
 
 //book constructor
 function Book(title, author, pages, read){
@@ -11,47 +10,37 @@ function Book(title, author, pages, read){
     this.author = author;
     this.pages = pages;
     this.read = read;
-
 }
-
-// Book.prototype.info = function(){
-//     return {
-//         title : this.title,
-//         author : this.author,
-//         pages : this.pages,
-//         read : this.read
-//     };
-// }
 
 //add book to start oy library array
 function addBookToLibrary(book){
     myLibrary.unshift(book);
 }
 
-
 //display all books in library
 function displayMyLibrary(library){
-
 
     //clear display before getting books
     libraryDisplay.innerHTML = '';
 
     library.forEach(element => {
-        //console.log(element.title);
 
         let checked;
         if (element.read ? checked = 'checked' : checked = '');
+
+        let status = '';
+        if (element.read ? status = 'Read' : status = 'Not read');
         
         //make card for each book
         libraryDisplay.innerHTML += `<div class="card" data-bookTitle="${element.title}">
                                         <div class="container">
                                         <span class="delete" data-bookTitle="${element.title}">&times;</span>
                                         <h4><b>"${element.title}"</b></h4>
-                                        <p>by ${element.author}</p>
+                                        <p>by <i>${element.author}</i></p>
                                         <p>${element.pages} pages</p>
-                                        <p>Read? ${element.read}</p>
+                                        <p>${status}</p>
                                         <label class="switch">
-                                          <input type="checkbox" ${checked}>
+                                          <input type="checkbox" id="readStatus" ${checked}>
                                           <span class="slider round"></span>
                                         </label>
                                         </div>
@@ -64,16 +53,13 @@ function displayMyLibrary(library){
 
     removeBookBtn.forEach(element => {
       element.addEventListener('click', function removeBookBtn(e){
-    
         title = element.getAttribute('data-booktitle');
-        console.log(title);
         removeBook(title);
       });
     });
 
-
     //define read book status toggle
-    const toggleReadBtn = document.querySelectorAll('input[type="checkbox"]');
+    const toggleReadBtn = document.querySelectorAll('[id="readStatus"]');
 
     toggleReadBtn.forEach(element => {
       element.addEventListener('change', function toggleReadStatus(){
@@ -82,9 +68,6 @@ function displayMyLibrary(library){
         toggleBookRead(read, title);
       });
     });
-
-
-
 }
 
 
@@ -130,53 +113,31 @@ submitBtn.onclick = function() {
     newBook.pages = bookPages;
     newBook.read = bookRead;
 
-    //alert(newBook);
     addBookToLibrary(newBook);
     displayMyLibrary(myLibrary);
-
 }
 
-function refresh(){
-  displayMyLibrary(myLibrary);
-}
 
 function removeBook(title){
-
   const index = myLibrary.findIndex(book => book.title === title);
-  console.log(index);
-
   myLibrary.splice(index, 1);
-
 
   //'refresh' library display after removing a book
   displayMyLibrary(myLibrary);
-
 }
 
 
-
 function toggleBookRead(bool, title){
-
   const index = myLibrary.findIndex(book => book.title === title);
-  console.log(index);
-
   myLibrary[index].read = bool;
 
   //'refresh' library display after changing read status
   displayMyLibrary(myLibrary);
-
 }
 
 
 
-
-
-
-
-
-
-
-//// the modal stuff for add a new book  ////
+//// the modal for add a new book form ////
 // Get the modal
 const modal = document.getElementById("myModal");
 

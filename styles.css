@@ -7,25 +7,26 @@ body{
 }
 
 #container{
-    margin: 5rem 5rem;
-    border: 3px solid green;
+    margin: 8rem 3rem;
+    padding: 1rem;
+    background-color: cadetblue;
+    border-radius: 5rem;
+    border: 5px solid springgreen;
 }
 
 header{
     font-size: 48pt;
     text-align: center;
-    font-weight: bolder;
-    /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
+    font-weight: bold;
 }
 
 #library{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
-    /* background-color: fuchsia; */
 }
 
-#newBook{
+#newBook, #submit{
     display: block;
     margin: 1rem auto 0;
     padding:0.3em 1.2em;
@@ -35,40 +36,46 @@ header{
     background-color: #f14e4e;
     text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
     text-align:center;
-    transition: 0.2s;
-
+    transition: 0.5s;
+    box-shadow: 0 6px 12px 0 rgba(0,0,0,0.4);
 }
 
-#newBook:hover{
-
-    border-color: rgba(255,255,255,1);
+#newBook:hover, #submit:hover{
+    border-color: springgreen;
 }
 
+#header{
+  background-color: chocolate;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5rem;;
+  position: absolute;
+  margin-bottom: 5rem;
+  border-bottom: 1px solid black;
+}
 
 /* book cards */
 .card {
-  /* Add shadows to create the "card" effect */
-  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
   transition: 0.3s;
   font-size: 16pt;
   margin: 2rem;
   text-align: center;
   border-radius: 15px;
   flex: 0 0 21%;
-  background-color: rgb(255, 245, 188);
+  background-color: rgb(245, 230, 145);
 }
 
 /* On mouse-over, add a deeper shadow */
 .card:hover {
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 12px 24px 0 rgba(0,0,0,0.7);
 }
 
-/* Add some padding inside the card container */
 .container {
   padding: 2px 16px;
 }
 
-/* The delete Button */
 .delete {
   color: #aaaaaa;
   float: right;
@@ -102,12 +109,13 @@ header{
 
 /* Modal Content */
 .modal-content {
-  background-color: #fefefe;
+  background-color: rgb(147, 194, 196);
   margin: auto;
   padding: 1em;
   border: 1px solid #888;
   width: 45%;
   text-align: center;
+  border-radius: 1rem;
 }
 
 /* The Close Button */
