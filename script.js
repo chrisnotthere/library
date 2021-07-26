@@ -4,15 +4,19 @@ const submitBtn = document.getElementById("submit");
 
 let myLibrary = [];
 
-//book constructor
-function Book(title, author, pages, read){
+//    book class, refactored from plain constructor syntax    //
+class Book{
+
+  constructor(title, author, pages, read){
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.read = read;
+  }
+   
 }
 
-//add book to start oy library array
+//add book to start of library array
 function addBookToLibrary(book){
     myLibrary.unshift(book);
 }
@@ -72,23 +76,28 @@ function displayMyLibrary(library){
 
 
 //// add sample books to library ////
-const theHobbit = Object.create(Book.prototype);
-theHobbit.title = 'The Hobbit';
-theHobbit.author = 'J.R.R Tolkien';
-theHobbit.pages = 295;
-theHobbit.read = false;
+// const theHobbit = Object.create(Book.prototype);
+// theHobbit.title = 'The Hobbit';
+// theHobbit.author = 'J.R.R Tolkien';
+// theHobbit.pages = 295;
+// theHobbit.read = false;
 
-const endersGame = Object.create(Book.prototype);
-endersGame.title = `Ender's Game`;
-endersGame.author = 'Orsen Scott Card';
-endersGame.pages = 324;
-endersGame.read = true;
+// const endersGame = Object.create(Book.prototype);
+// endersGame.title = `Ender's Game`;
+// endersGame.author = 'Orsen Scott Card';
+// endersGame.pages = 324;
+// endersGame.read = true;
 
-const theTimeMachine = Object.create(Book.prototype);
-theTimeMachine.title = 'The Time Machine';
-theTimeMachine.author = 'H.G.Wells';
-theTimeMachine.pages = 84;
-theTimeMachine.read = true;
+// const theTimeMachine = Object.create(Book.prototype);
+// theTimeMachine.title = 'The Time Machine';
+// theTimeMachine.author = 'H.G.Wells';
+// theTimeMachine.pages = 84;
+// theTimeMachine.read = true;
+
+//    refactored code for class syntax    //
+const theHobbit = new Book('The Hobbit', 'J.R.R Tolkien', 295, false);
+const endersGame = new Book(`Ender's Game`, 'Orsen Scott Card', 324, true);
+const theTimeMachine = new Book('The Time Machine', 'H.G.Wells', 84, true);
 
 addBookToLibrary(theHobbit);
 addBookToLibrary(endersGame);
@@ -107,11 +116,14 @@ submitBtn.onclick = function() {
     bookPages = document.getElementById('bookPages').value;
     bookRead = document.getElementById('bookRead').checked;
 
-    const newBook = Object.create(Book.prototype);
-    newBook.title = bookTitle;
-    newBook.author = bookAuthor;
-    newBook.pages = bookPages;
-    newBook.read = bookRead;
+    // const newBook = Object.create(Book.prototype);
+    // newBook.title = bookTitle;
+    // newBook.author = bookAuthor;
+    // newBook.pages = bookPages;
+    // newBook.read = bookRead;
+
+    //    refactored code for class syntax    //
+    const newBook = new Book(bookTitle, bookAuthor, bookPages, bookRead);
 
     addBookToLibrary(newBook);
     displayMyLibrary(myLibrary);
